@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farmitecture Registration Page</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .bg-image {
+      /* The image used */
+      background-image: url("path/to/your/background-image.jpg");
+      
+      /* Full height */
+      height: 100%; 
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .register-box {
+      margin-top: 8vh; /* Added margin to the top */
+    }
+
+    .card {
+      opacity: 0.95; /* Slight transparency so background peeks through */
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body class="hold-transition register-page bg-image">
+<div class="register-box">
+  <div class="register-logo">
+    <a href=""><b>Farmitecture</b> Register</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register as a new admin</p>
+
+      <form action="/Farmitecture/actions/register_action.php" method="post" id="registerForm">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Username" name="Username" id="username" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Retype password" name="password_retype" id="password_retype" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="error" id="passwordError"></div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Admin Code" name="admin_code" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user-shield"></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
+              <label for="agreeTerms">
+               I agree to the <a href="#">terms</a>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <a href="login.html" class="text-center">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function(event) {
+    const password = document.getElementById('password').value;
+    const passwordRetype = document.getElementById('password_retype').value;
+    const terms = document.getElementById('agreeTerms').checked;
+    const passwordError = document.getElementById('passwordError');
+
+    // Reset error messages
+    passwordError.textContent = '';
+
+    // Password validation regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      passwordError.textContent = 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.';
+      event.preventDefault();
+    } else if (password !== passwordRetype) {
+      passwordError.textContent = 'Passwords do not match.';
+      event.preventDefault();
+    }
+
+    if (!terms) {
+      alert('You must agree to the terms and conditions.');
+      event.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>
